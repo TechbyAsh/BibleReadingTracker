@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TextInput, FlatList, TouchableOpacity } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
@@ -23,18 +22,18 @@ export default function JournalScreen() {
 
   const addEntry = () => {
     if (newEntry.trim() === '') return;
-    
+
     const today = new Date();
     const options = { month: 'long', day: 'numeric', year: 'numeric' };
     const formattedDate = today.toLocaleDateString('en-US', options);
-    
+
     const newJournalEntry = {
       id: Date.now().toString(),
       date: formattedDate,
       content: newEntry,
       mood: mood
     };
-    
+
     setEntries([newJournalEntry, ...entries]);
     setNewEntry('');
     setMood('neutral');
@@ -66,14 +65,14 @@ export default function JournalScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="light" />
-      
+
       <LinearGradient
         colors={[Colors.primary, Colors.primaryGradientEnd]}
         style={styles.header}
       >
         <Text style={styles.headerTitle}>Journal</Text>
       </LinearGradient>
-      
+
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
@@ -83,7 +82,7 @@ export default function JournalScreen() {
           value={newEntry}
           onChangeText={setNewEntry}
         />
-        
+
         <View style={styles.moodSelector}>
           <Text style={styles.moodLabel}>How do you feel?</Text>
           <View style={styles.moodOptions}>
@@ -107,21 +106,21 @@ export default function JournalScreen() {
             </TouchableOpacity>
           </View>
         </View>
-        
+
         <Button 
           title="Add Journal Entry" 
           onPress={addEntry}
           style={styles.addButton}
         />
       </View>
-      
+
       <FlatList
         data={entries}
         renderItem={renderItem}
         keyExtractor={item => item.id}
         style={styles.entriesList}
       />
-      
+
       <View style={styles.bottomBar}>
         <TouchableOpacity 
           style={styles.navButton}
@@ -155,7 +154,8 @@ export default function JournalScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background,
+    backgroundColor: 'transparent',
+    padding: 20,
   },
   header: {
     paddingTop: 40,

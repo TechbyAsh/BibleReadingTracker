@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
@@ -22,7 +21,7 @@ export default function DashboardScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="dark" />
-      
+
       <View style={styles.header}>
         <View>
           <Text style={styles.greeting}>Good Day 👋</Text>
@@ -32,7 +31,7 @@ export default function DashboardScreen() {
           <Ionicons name="person-circle-outline" size={40} color={Colors.primary} />
         </TouchableOpacity>
       </View>
-      
+
       <View style={styles.statsContainer}>
         <View style={styles.statItems}>
           <View style={styles.statItem}>
@@ -48,12 +47,12 @@ export default function DashboardScreen() {
             <Text style={styles.statLabel}>Cycling</Text>
           </View>
         </View>
-        
+
         <View style={styles.progressContainer}>
           <ProgressCircle percentage={progress} />
         </View>
       </View>
-      
+
       <LinearGradient
         colors={[Colors.primary, Colors.primaryGradientEnd]}
         start={{ x: 0, y: 0 }}
@@ -65,7 +64,7 @@ export default function DashboardScreen() {
           <Ionicons name="options-outline" size={24} color="white" />
         </TouchableOpacity>
       </LinearGradient>
-      
+
       <ScrollView style={styles.habitsContainer}>
         {habits.map(habit => (
           <HabitCard 
@@ -79,7 +78,7 @@ export default function DashboardScreen() {
           />
         ))}
       </ScrollView>
-      
+
       <View style={styles.bottomBar}>
         <TouchableOpacity style={styles.navButton}>
           <Ionicons name="grid-outline" size={24} color={Colors.primary} />
@@ -110,7 +109,8 @@ export default function DashboardScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background,
+    backgroundColor: 'transparent',
+    padding: 20,
   },
   header: {
     flexDirection: 'row',
