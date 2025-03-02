@@ -84,8 +84,11 @@ export default function DashboardScreen() {
         <TouchableOpacity style={styles.navButton}>
           <Ionicons name="grid-outline" size={24} color={Colors.primary} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton}>
-          <Ionicons name="time-outline" size={24} color={Colors.textSecondary} />
+        <TouchableOpacity 
+          style={styles.navButton}
+          onPress={() => router.push('/journal')}
+        >
+          <Ionicons name="book-outline" size={24} color={Colors.textSecondary} />
         </TouchableOpacity>
         <TouchableOpacity 
           style={styles.addButton}

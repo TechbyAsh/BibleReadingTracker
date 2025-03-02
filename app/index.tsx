@@ -38,6 +38,45 @@ export default function WelcomeScreen() {
   );
 }
 
+import React from 'react';
+import { View, Text, StyleSheet, Image, SafeAreaView } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import { useRouter } from 'expo-router';
+import Colors from '../constants/Colors';
+import Button from '../components/Button';
+
+export default function WelcomeScreen() {
+  const router = useRouter();
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <StatusBar style="auto" />
+
+      <View style={styles.imageContainer}>
+        <Image 
+          source={require('../assets/images/icon.png')}
+          style={styles.image}
+          resizeMode="contain"
+        />
+      </View>
+
+      <View style={styles.textContainer}>
+        <Text style={styles.title}>Maintain Daily Habit</Text>
+        <Text style={styles.description}>
+          A habit tracker is a simple way to measure whether you did a habit. The most basic format is to get a calendar.
+        </Text>
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <Button 
+          title="Get Started" 
+          onPress={() => router.push('/dashboard')}
+        />
+      </View>
+    </SafeAreaView>
+  );
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
