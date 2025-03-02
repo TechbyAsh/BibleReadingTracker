@@ -110,7 +110,7 @@ export default function JournalScreen() {
         <Button 
           title="Add Journal Entry" 
           onPress={addEntry}
-          style={styles.addButton}
+          style={styles.journalAddButton}
         />
       </View>
 
@@ -217,6 +217,11 @@ const styles = StyleSheet.create({
   selectedMood: {
     borderColor: Colors.primary,
     backgroundColor: 'rgba(0, 96, 214, 0.1)',
+  },
+  journalAddButton: {
+    marginTop: 15,
+    width: '100%',
+    borderRadius: 30,
   },
   addButton: {
     marginTop: 15,
