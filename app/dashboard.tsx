@@ -27,7 +27,10 @@ export default function DashboardScreen() {
           <Text style={styles.greeting}>Good Day 👋</Text>
           <Text style={styles.username}>John D.</Text>
         </View>
-        <TouchableOpacity style={styles.profileButton}>
+        <TouchableOpacity 
+          style={styles.profileButton}
+          onPress={() => router.push('/profile')}
+        >
           <Ionicons name="person-circle-outline" size={40} color={Colors.primary} />
         </TouchableOpacity>
       </View>
@@ -98,7 +101,10 @@ export default function DashboardScreen() {
         <TouchableOpacity style={styles.navButton}>
           <Ionicons name="notifications-outline" size={24} color={Colors.textSecondary} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton}>
+        <TouchableOpacity 
+          style={styles.navButton}
+          onPress={() => router.push('/profile')}
+        >
           <Ionicons name="person-outline" size={24} color={Colors.textSecondary} />
         </TouchableOpacity>
       </View>

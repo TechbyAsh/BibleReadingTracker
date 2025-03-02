@@ -28,6 +28,7 @@ export default function RootLayout() {
           <Stack.Screen name="dashboard" />
           <Stack.Screen name="add-habit" />
           <Stack.Screen name="journal" />
+          <Stack.Screen name="profile" />
         </Stack>
       </LinearGradient>
     </SafeAreaProvider>
