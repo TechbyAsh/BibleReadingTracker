@@ -49,6 +49,16 @@ export default function AddHabitScreen() {
   ];
 
   const [selectedRoutine, setSelectedRoutine] = useState('none');
+  
+  const handleAddHabit = () => {
+    // Save habit logic here
+    if (selectedRoutine !== 'none') {
+      // Redirect to routines page to arrange the habit
+      router.push('/routines');
+    } else {
+      router.back();
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -245,10 +255,7 @@ export default function AddHabitScreen() {
       <View style={styles.buttonContainer}>
         <Button 
           title="Add Habit" 
-          onPress={() => {
-            // Save habit logic here
-            router.back();
-          }} 
+          onPress={handleAddHabit} 
         />
       </View>
     </SafeAreaView>

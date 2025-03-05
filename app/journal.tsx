@@ -128,8 +128,7 @@ export default function JournalScreen() {
         >
           <Ionicons name="grid-outline" size={24} color={Colors.textSecondary} />
         </TouchableOpacity>
-        <TouchableOpacity 
-          style={styles.navButton}
+        <TouchableOpacity style={styles.navButton}
           onPress={() => router.push('/journal')}
         >
           <Ionicons name="book-outline" size={24} color={Colors.primary} />
@@ -140,10 +139,16 @@ export default function JournalScreen() {
         >
           <Ionicons name="add" size={30} color="#fff" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton}>
-          <Ionicons name="notifications-outline" size={24} color={Colors.textSecondary} />
+        <TouchableOpacity 
+          style={styles.navButton}
+          onPress={() => router.push('/routines')}
+        >
+          <Ionicons name="calendar-outline" size={24} color={Colors.textSecondary} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton}>
+        <TouchableOpacity 
+          style={styles.navButton}
+          onPress={() => router.push('/profile')}
+        >
           <Ionicons name="person-outline" size={24} color={Colors.textSecondary} />
         </TouchableOpacity>
       </View>

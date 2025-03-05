@@ -98,8 +98,11 @@ export default function DashboardScreen() {
         >
           <Ionicons name="add" size={30} color="#fff" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton}>
-          <Ionicons name="notifications-outline" size={24} color={Colors.textSecondary} />
+        <TouchableOpacity 
+          style={styles.navButton}
+          onPress={() => router.push('/routines')}
+        >
+          <Ionicons name="calendar-outline" size={24} color={Colors.textSecondary} />
         </TouchableOpacity>
         <TouchableOpacity 
           style={styles.navButton}
