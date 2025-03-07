@@ -36,7 +36,7 @@ export default function DashboardScreen() {
             <Ionicons name="person-circle-outline" size={40} color={Colors.primary} />
           </TouchableOpacity>
         </View>
-      </NeomorphBox>ew>
+      </NeomorphBox>
 
       <View style={styles.statsContainer}>
         <View style={styles.statItems}>
@@ -121,31 +121,38 @@ export default function DashboardScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'transparent',
-    padding: 20,
+    padding: 16,
+  },
+  headerContainer: {
+    marginBottom: 20,
+    padding: 15,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingTop: 20,
   },
   greeting: {
-    fontSize: 14,
+    fontSize: 16,
     color: Colors.textSecondary,
   },
   username: {
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: 'bold',
     color: Colors.text,
   },
   profileButton: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: Colors.neomorphismShadowLight,
     justifyContent: 'center',
     alignItems: 'center',
+    shadowColor: Colors.neomorphismShadowDark,
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+    elevation: 3,
   },
   statsContainer: {
     marginTop: 20,
@@ -216,44 +223,6 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 5,
   },
-});
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-  headerContainer: {
-    marginBottom: 20,
-    padding: 15,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  greeting: {
-    fontSize: 16,
-    color: Colors.textSecondary,
-  },
-  username: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: Colors.text,
-  },
-  profileButton: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: Colors.neomorphismShadowLight,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: Colors.neomorphismShadowDark,
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 3,
-    elevation: 3,
-  },
   section: {
     marginVertical: 15,
   },
@@ -264,29 +233,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginLeft: 5,
   },
-  progressContainer: {
-    alignItems: 'center',
-    marginVertical: 20,
-  },
   habitList: {
     marginTop: 10,
-  },
-  addButton: {
-    position: 'absolute',
-    bottom: 20,
-    right: 20,
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: Colors.background,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: Colors.neomorphismShadowDark,
-    shadowOffset: { width: 5, height: 5 },
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
-    elevation: 5,
-    borderWidth: 1,
-    borderColor: Colors.neomorphismShadowLight,
   },
 });
