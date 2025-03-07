@@ -20,18 +20,21 @@ export default function RootLayout() {
           style={styles.background}
         >
           <Stack
-          screenOptions={{
-            headerShown: false,
-            contentStyle: { backgroundColor: 'transparent' },
-            animation: 'slide_from_right',
-          }}
-        >
-          <Stack.Screen name="index" />
-          <Stack.Screen name="dashboard" />
-          <Stack.Screen name="add-habit" />
-          <Stack.Screen name="journal" />
-          <Stack.Screen name="profile" />
-        </Stack>
+            screenOptions={{
+              headerShown: false,
+              contentStyle: { backgroundColor: 'transparent' },
+              animation: 'fade',
+              animationDuration: 200,
+              presentation: 'transparentModal',
+              freezeOnBlur: true,
+            }}
+          >
+            <Stack.Screen name="index" />
+            <Stack.Screen name="dashboard" />
+            <Stack.Screen name="add-habit" />
+            <Stack.Screen name="journal" />
+            <Stack.Screen name="profile" />
+          </Stack>
         </LinearGradient>
       </SafeAreaProvider>
     </GestureHandlerRootView>
