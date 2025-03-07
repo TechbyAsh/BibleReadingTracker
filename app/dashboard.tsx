@@ -155,7 +155,85 @@ export default function DashboardScreen() {
 }
 
 const styles = StyleSheet.create({
-  // ... existing styles
+  container: {
+    flex: 1,
+    padding: 16,
+  },
+  headerContainer: {
+    marginBottom: 20,
+    padding: 15,
+    marginTop: 10,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  greeting: {
+    fontSize: 16,
+    color: Colors.textSecondary,
+  },
+  username: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: Colors.text,
+  },
+  profileButton: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: Colors.neomorphismShadowLight,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: Colors.neomorphismShadowDark,
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+    elevation: 3,
+  },
+  statsContainer: {
+    marginTop: 10,
+  },
+  statItems: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 10,
+    paddingHorizontal: 10,
+  },
+  statItem: {
+    alignItems: 'center',
+    padding: 5,
+  },
+  statLabel: {
+    fontSize: 14,
+    color: Colors.textSecondary,
+    marginTop: 5,
+  },
+  progressContainer: {
+    alignItems: 'center',
+    marginVertical: 15,
+  },
+  habitsHeaderContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 15,
+    borderRadius: 10,
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 5,
+  },
+  habitsContainer: {
+    flex:1
+  },
+  bottomBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    backgroundColor: Colors.primary,
+  },
   tabBar: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -173,6 +251,19 @@ const styles = StyleSheet.create({
   },
   activeTabLabel: {
     color: Colors.primary,
+  },
+  addButton: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: Colors.neomorphismShadowLight,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: Colors.neomorphismShadowDark,
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+    elevation: 3,
   },
   addButtonIcon:{
     color: '#fff'
