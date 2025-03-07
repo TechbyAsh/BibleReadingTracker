@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity, Platform } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -8,35 +8,16 @@ import Colors from '../constants/Colors';
 import ProgressCircle from '../components/ProgressCircle';
 import HabitCard from '../components/HabitCard';
 import NeomorphBox from '../components/NeomorphBox';
-import GlowingIcon from '../components/GlowingIcon'; // Placeholder for GlowingIcon component
 
 export default function DashboardScreen() {
   const router = useRouter();
   const [progress, setProgress] = useState(78);
-  const [activeTab, setActiveTab] = useState('dashboard'); // Added state for active tab
 
   const habits = [
     { id: '1', title: 'Night Sleep', time: '06:00 AM', completed: true, icon: 'bed-outline' },
     { id: '2', title: 'Morning Walk', time: '07:00 AM', completed: false, pending: true, icon: 'walk-outline' },
     { id: '3', title: 'Cycling', time: '05:00 PM', completed: false, icon: 'bicycle-outline' },
   ];
-
-  const handleTabPress = (tab) => {
-    setActiveTab(tab);
-    switch (tab) {
-      case 'journal':
-        router.push('/journal');
-        break;
-      case 'routines':
-        router.push('/routines');
-        break;
-      case 'profile':
-        router.push('/profile');
-        break;
-      default:
-        break;
-    }
-  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -105,49 +86,32 @@ export default function DashboardScreen() {
       </ScrollView>
 
       <View style={styles.bottomBar}>
-        <View style={styles.tabBar}> {/* Added TabBar */}
-          <TouchableOpacity style={styles.tabItem} onPress={() => handleTabPress('dashboard')}>
-            <GlowingIcon 
-              name="grid-outline" 
-              size={24} 
-              active={activeTab === 'dashboard'} 
-              color={Colors.textSecondary} 
-            />
-            <Text style={[styles.tabLabel, activeTab === 'dashboard' && styles.activeTabLabel]}>Home</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.tabItem} onPress={() => handleTabPress('routines')}>
-            <GlowingIcon 
-              name="calendar-outline" 
-              size={24} 
-              active={activeTab === 'routines'} 
-              color={Colors.textSecondary} 
-            />
-            <Text style={[styles.tabLabel, activeTab === 'routines' && styles.activeTabLabel]}>Routines</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.tabItem} onPress={() => handleTabPress('journal')}>
-            <GlowingIcon 
-              name="book-outline" 
-              size={24} 
-              active={activeTab === 'journal'} 
-              color={Colors.textSecondary} 
-            />
-            <Text style={[styles.tabLabel, activeTab === 'journal' && styles.activeTabLabel]}>Journal</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.tabItem} onPress={() => handleTabPress('profile')}>
-            <GlowingIcon 
-              name="person-outline" 
-              size={24} 
-              active={activeTab === 'profile'} 
-              color={Colors.textSecondary} 
-            />
-            <Text style={[styles.tabLabel, activeTab === 'profile' && styles.activeTabLabel]}>Profile</Text>
-          </TouchableOpacity>
-        </View>
-        <TouchableOpacity
+        <TouchableOpacity style={styles.navButton}>
+          <Ionicons name="grid-outline" size={24} color={Colors.primary} />
+        </TouchableOpacity>
+        <TouchableOpacity 
+          style={styles.navButton}
+          onPress={() => router.push('/journal')}
+        >
+          <Ionicons name="book-outline" size={24} color={Colors.textSecondary} />
+        </TouchableOpacity>
+        <TouchableOpacity 
           style={styles.addButton}
           onPress={() => router.push('/add-habit')}
         >
-          <GlowingIcon name="add" size={30} active={true} /> {/* Added GlowingIcon */}
+          <Ionicons name="add" size={30} color="#fff" />
+        </TouchableOpacity>
+        <TouchableOpacity 
+          style={styles.navButton}
+          onPress={() => router.push('/routines')}
+        >
+          <Ionicons name="calendar-outline" size={24} color={Colors.textSecondary} />
+        </TouchableOpacity>
+        <TouchableOpacity 
+          style={styles.navButton}
+          onPress={() => router.push('/profile')}
+        >
+          <Ionicons name="person-outline" size={24} color={Colors.textSecondary} />
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -162,7 +126,6 @@ const styles = StyleSheet.create({
   headerContainer: {
     marginBottom: 20,
     padding: 15,
-    marginTop: 10,
   },
   header: {
     flexDirection: 'row',
@@ -192,90 +155,85 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   statsContainer: {
-    marginTop: 10,
+    marginTop: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
   },
   statItems: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 10,
-    paddingHorizontal: 10,
+    flex: 1,
   },
   statItem: {
+    flexDirection: 'row',
     alignItems: 'center',
-    padding: 5,
+    marginBottom: 16,
   },
   statLabel: {
-    fontSize: 14,
-    color: Colors.textSecondary,
-    marginTop: 5,
+    marginLeft: 10,
+    fontSize: 16,
+    color: Colors.text,
   },
   progressContainer: {
     alignItems: 'center',
-    marginVertical: 15,
   },
   habitsHeaderContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 15,
-    borderRadius: 10,
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 5,
+    marginTop: 20,
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    borderRadius: 15,
+    marginHorizontal: 15,
+  },
+  habitsHeader: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff',
   },
   habitsContainer: {
-    flex:1
+    flex: 1,
+    paddingHorizontal: 20,
+    marginTop: 15,
   },
   bottomBar: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    backgroundColor: Colors.primary,
-  },
-  tabBar: {
-    flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    flex:1,
-    paddingHorizontal: 20,
+    height: 70,
+    backgroundColor: '#fff',
+    borderTopWidth: 1,
+    borderTopColor: '#EEEEEE',
   },
-  tabItem: {
-    alignItems: 'center',
-  },
-  tabLabel: {
-    fontSize: 12,
-    color: Colors.textSecondary,
-    marginTop: 5,
-  },
-  activeTabLabel: {
-    color: Colors.primary,
+  navButton: {
+    padding: 10,
   },
   addButton: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: Colors.neomorphismShadowLight,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: Colors.primary,
     justifyContent: 'center',
     alignItems: 'center',
-    ...Platform.select({
-      ios: {
-        shadowColor: Colors.primary,
-        shadowOffset: { width: 0, height: 0 },
-        shadowOpacity: 0.5,
-        shadowRadius: 8,
-      },
-      android: {
-        elevation: 6,
-      },
-      web: {
-        boxShadow: `0 0 10px ${Colors.primary}`,
-      },
-    }),
+    marginBottom: 25,
+    shadowColor: Colors.primary,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 5,
   },
-  addButtonIcon:{
-    color: '#fff'
-  }
-
+  section: {
+    marginVertical: 15,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: Colors.text,
+    marginBottom: 10,
+    marginLeft: 5,
+  },
+  habitList: {
+    marginTop: 10,
+  },
 });
