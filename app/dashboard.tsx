@@ -259,11 +259,20 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.neomorphismShadowLight,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: Colors.neomorphismShadowDark,
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 3,
-    elevation: 3,
+    ...Platform.select({
+      ios: {
+        shadowColor: Colors.primary,
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.5,
+        shadowRadius: 8,
+      },
+      android: {
+        elevation: 6,
+      },
+      web: {
+        boxShadow: `0 0 10px ${Colors.primary}`,
+      },
+    }),
   },
   addButtonIcon:{
     color: '#fff'
