@@ -31,8 +31,9 @@ export default function RoutinesScreen() {
     return (
       <ScaleDecorator>
         <TouchableOpacity
-          activeOpacity={1}
+          activeOpacity={0.7}
           onLongPress={drag}
+          delayLongPress={200}
           disabled={isActive}
           style={[
             styles.dragItem,
@@ -45,9 +46,12 @@ export default function RoutinesScreen() {
             icon={item.icon}
             onPress={() => {}}
           />
-          <View style={styles.dragHandle}>
+          <TouchableOpacity 
+            onPressIn={drag} 
+            style={styles.dragHandle}
+          >
             <Ionicons name="menu-outline" size={22} color={Colors.textSecondary} />
-          </View>
+          </TouchableOpacity>
         </TouchableOpacity>
       </ScaleDecorator>
     );
