@@ -14,7 +14,7 @@ export default function RootLayout() {
       <SafeAreaProvider>
         <StatusBar style="auto" />
         <LinearGradient
-          colors={['#f0f4ff', '#e6edff', '#dae5ff']}
+          colors={['#C5F9D7', '#F7D486', '#F27A7D']}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
           style={styles.background}
