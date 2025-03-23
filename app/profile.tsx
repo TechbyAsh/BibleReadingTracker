@@ -120,36 +120,6 @@ export default function ProfileScreen() {
           />
         </View>
       </ScrollView>
-
-      <View style={styles.bottomBar}>
-        <TouchableOpacity 
-          style={styles.navButton}
-          onPress={() => router.push('/dashboard')}
-        >
-          <Ionicons name="grid-outline" size={24} color={Colors.textSecondary} />
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={styles.navButton}
-          onPress={() => router.push('/journal')}
-        >
-          <Ionicons name="book-outline" size={24} color={Colors.textSecondary} />
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={styles.addButton}
-          onPress={() => router.push('/add-habit')}
-        >
-          <Ionicons name="add" size={30} color="#fff" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton}>
-          <Ionicons name="notifications-outline" size={24} color={Colors.textSecondary} />
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={styles.navButton}
-          onPress={() => router.push('/profile')}
-        >
-          <Ionicons name="person-outline" size={24} color={Colors.primary} />
-        </TouchableOpacity>
-      </View>
     </SafeAreaView>
   );
 }
