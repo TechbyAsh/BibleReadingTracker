@@ -9,13 +9,13 @@ import NeomorphBox from '../components/NeomorphBox';
 import NavigationBar from '../components/NavigationBar';
 
 const BIBLE_BOOKS = [
-  { id: '1', name: 'Genesis', chapters: 50 },
-  { id: '2', name: 'Exodus', chapters: 40 },
-  { id: '3', name: 'Leviticus', chapters: 27 },
-  { id: '4', name: 'Matthew', chapters: 28 },
-  { id: '5', name: 'Mark', chapters: 16 },
-  { id: '6', name: 'Luke', chapters: 24 },
-  { id: '7', name: 'John', chapters: 21 },
+  { id: '1', name: 'Genesis', chapters: 50, progress: 15 },
+  { id: '2', name: 'Exodus', chapters: 40, progress: 20 },
+  { id: '3', name: 'Leviticus', chapters: 27, progress: 5 },
+  { id: '4', name: 'Matthew', chapters: 28, progress: 28 },
+  { id: '5', name: 'Mark', chapters: 16, progress: 8 },
+  { id: '6', name: 'Luke', chapters: 24, progress: 12 },
+  { id: '7', name: 'John', chapters: 21, progress: 7 },
   // Add more books as needed
 ];
 
@@ -43,10 +43,15 @@ export default function BooksAndChaptersScreen() {
             >
               <NeomorphBox style={styles.bookCard}>
                 <View style={styles.bookContent}>
-                  <Text style={styles.bookTitle}>{book.name}</Text>
-                  <View style={styles.chaptersInfo}>
-                    <Text style={styles.chaptersText}>{book.chapters} chapters</Text>
-                    <Ionicons name="chevron-forward" size={20} color={Colors.textSecondary} />
+                  <View style={styles.bookInfo}>
+                    <Text style={styles.bookTitle}>{book.name}</Text>
+                    <View style={styles.chaptersInfo}>
+                      <Text style={styles.chaptersText}>{book.progress}/{book.chapters} chapters</Text>
+                      <Ionicons name="chevron-forward" size={20} color={Colors.textSecondary} />
+                    </View>
+                  </View>
+                  <View style={styles.progressBarContainer}>
+                    <View style={[styles.progressBar, { width: `${(book.progress / book.chapters) * 100}%` }]} />
                   </View>
                 </View>
               </NeomorphBox>
@@ -60,6 +65,21 @@ export default function BooksAndChaptersScreen() {
 }
 
 const styles = StyleSheet.create({
+  progressBarContainer: {
+    height: 4,
+    backgroundColor: Colors.cardHighlight,
+    borderRadius: 2,
+    marginTop: 8,
+    width: '100%',
+  },
+  progressBar: {
+    height: '100%',
+    backgroundColor: Colors.primary,
+    borderRadius: 2,
+  },
+  bookInfo: {
+    flex: 1,
+  },
   container: {
     flex: 1,
   },
