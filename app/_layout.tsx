@@ -21,19 +21,22 @@ export default function RootLayout() {
         >
           <Stack
             screenOptions={{
-              headerShown: false,
+              headerShown: true,
               contentStyle: { backgroundColor: 'transparent' },
-              animation: 'fade',
+              animation: 'slide_from_right',
               animationDuration: 200,
-              presentation: 'transparentModal',
-              freezeOnBlur: true,
+              headerStyle: { backgroundColor: Colors.primary },
+              headerTintColor: '#fff',
+              headerTitleStyle: { fontWeight: 'bold' },
+              headerBackTitleVisible: false,
             }}
           >
-            <Stack.Screen name="index" />
-            <Stack.Screen name="dashboard" />
-            <Stack.Screen name="add-habit" />
-            <Stack.Screen name="journal" />
-            <Stack.Screen name="profile" />
+            <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen name="dashboard" options={{ title: 'Dashboard', headerShown: false }} />
+            <Stack.Screen name="add-habit" options={{ title: 'Add Habit' }} />
+            <Stack.Screen name="journal" options={{ title: 'Bible Journal' }} />
+            <Stack.Screen name="routines" options={{ title: 'My Routines' }} />
+            <Stack.Screen name="profile" options={{ title: 'Profile' }} />
           </Stack>
         </LinearGradient>
       </SafeAreaProvider>

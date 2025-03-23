@@ -64,32 +64,7 @@ export default function DashboardScreen() {
         </View>
       </LinearGradient>
 
-      <View style={styles.bottomBar}>
-        <TouchableOpacity style={styles.navButton}>
-          <Ionicons name="home-outline" size={24} color={Colors.primary} />
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={styles.navButton}
-          onPress={() => router.push('/journal')}
-        >
-          <Ionicons name="journal-outline" size={24} color={Colors.textSecondary} />
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={styles.addButton}
-          onPress={() => router.push('/add-reading')}
-        >
-          <Ionicons name="add" size={30} color="#fff" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton}>
-          <Ionicons name="book-outline" size={24} color={Colors.textSecondary} />
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={styles.navButton}
-          onPress={() => router.push('/profile')}
-        >
-          <Ionicons name="person-outline" size={24} color={Colors.textSecondary} />
-        </TouchableOpacity>
-      </View>
+      <NavigationBar />
     </SafeAreaView>
   );
 }
