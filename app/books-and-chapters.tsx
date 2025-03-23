@@ -74,22 +74,30 @@ export default function BooksAndChaptersScreen() {
             {filteredBooks
               .filter(book => book.testament === testament)
               .map(book => (
-                <NeomorphBox key={book.id} style={styles.bookCard}>
-                  <View style={styles.bookInfo}>
-                    <Text style={styles.bookTitle}>{book.name}</Text>
-                    <Text style={styles.chaptersInfo}>
-                      {book.completed}/{book.chapters} chapters
-                    </Text>
-                  </View>
-                  <View style={styles.progressBarContainer}>
-                    <View 
-                      style={[
-                        styles.progressBar,
-                        { width: `${(book.completed / book.chapters) * 100}%` }
-                      ]} 
-                    />
-                  </View>
-                </NeomorphBox>
+                <TouchableOpacity
+                  key={book.id}
+                  onPress={() => router.push({
+                    pathname: '/book-chapters',
+                    params: { id: book.id, name: book.name, chapters: book.chapters }
+                  })}
+                >
+                  <NeomorphBox style={styles.bookCard}>
+                    <View style={styles.bookInfo}>
+                      <Text style={styles.bookTitle}>{book.name}</Text>
+                      <Text style={styles.chaptersInfo}>
+                        {book.completed}/{book.chapters} chapters
+                      </Text>
+                    </View>
+                    <View style={styles.progressBarContainer}>
+                      <View 
+                        style={[
+                          styles.progressBar,
+                          { width: `${(book.completed / book.chapters) * 100}%` }
+                        ]} 
+                      />
+                    </View>
+                  </NeomorphBox>
+                </TouchableOpacity>
               ))}
           </View>
         ))}
