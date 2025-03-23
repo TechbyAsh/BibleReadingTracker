@@ -7,6 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Colors from '../constants/Colors';
 import ProgressCircle from '../components/ProgressCircle';
 import NeomorphBox from '../components/NeomorphBox';
+import NavigationBar from '../components/NavigationBar';
 
 export default function DashboardScreen() {
   const router = useRouter();
