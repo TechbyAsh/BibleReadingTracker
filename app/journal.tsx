@@ -5,20 +5,17 @@ import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
-import Button from '../components/Button';
 
-// Sample journal entries
 const initialEntries = [
-  { id: '1', date: 'May 10, 2023', content: 'Completed my morning walk and felt great. Need to increase duration tomorrow.', mood: 'happy' },
-  { id: '2', date: 'May 9, 2023', content: 'Missed my cycling session today. Will make up for it tomorrow.', mood: 'sad' },
-  { id: '3', date: 'May 8, 2023', content: 'Great progress with my sleep schedule. Slept for 8 hours straight.', mood: 'happy' },
+  { id: '1', date: 'May 10, 2023', passage: 'Genesis 1:1-3', content: 'Reflection on God\'s creation and the power of His word.', mood: 'inspired' },
+  { id: '2', date: 'May 9, 2023', passage: 'Psalm 23', content: 'The Lord is my shepherd - feeling grateful for His guidance.', mood: 'peaceful' },
 ];
 
 export default function JournalScreen() {
   const router = useRouter();
   const [entries, setEntries] = useState(initialEntries);
   const [newEntry, setNewEntry] = useState('');
-  const [mood, setMood] = useState('neutral');
+  const [passage, setPassage] = useState('');
 
   const addEntry = () => {
     if (newEntry.trim() === '') return;
@@ -30,33 +27,21 @@ export default function JournalScreen() {
     const newJournalEntry = {
       id: Date.now().toString(),
       date: formattedDate,
+      passage: passage,
       content: newEntry,
-      mood: mood
+      mood: 'inspired'
     };
 
     setEntries([newJournalEntry, ...entries]);
     setNewEntry('');
-    setMood('neutral');
-  };
-
-  const renderMoodIcon = (mood) => {
-    switch(mood) {
-      case 'happy':
-        return <Ionicons name="happy-outline" size={24} color={Colors.primary} />;
-      case 'sad':
-        return <Ionicons name="sad-outline" size={24} color="#FF6B6B" />;
-      default:
-        return <Ionicons name="happy-outline" size={24} color={Colors.textSecondary} />;
-    }
+    setPassage('');
   };
 
   const renderItem = ({ item }) => (
     <View style={styles.entryCard}>
       <View style={styles.entryHeader}>
         <Text style={styles.entryDate}>{item.date}</Text>
-        <View style={styles.moodIcon}>
-          {renderMoodIcon(item.mood)}
-        </View>
+        <Text style={styles.passageText}>{item.passage}</Text>
       </View>
       <Text style={styles.entryContent}>{item.content}</Text>
     </View>
@@ -65,93 +50,40 @@ export default function JournalScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="light" />
-
       <LinearGradient
         colors={[Colors.primary, Colors.primaryGradientEnd]}
-        style={styles.header}
+        style={styles.gradient}
       >
-        <Text style={styles.headerTitle}>Journal</Text>
-      </LinearGradient>
+        <Text style={styles.headerTitle}>Bible Study Journal</Text>
 
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="How was your habit journey today?"
-          placeholderTextColor="#999"
-          multiline
-          value={newEntry}
-          onChangeText={setNewEntry}
-        />
-
-        <View style={styles.moodSelector}>
-          <Text style={styles.moodLabel}>How do you feel?</Text>
-          <View style={styles.moodOptions}>
-            <TouchableOpacity 
-              style={[styles.moodOption, mood === 'happy' && styles.selectedMood]} 
-              onPress={() => setMood('happy')}
-            >
-              <Ionicons name="happy-outline" size={28} color={mood === 'happy' ? Colors.primary : Colors.textSecondary} />
-            </TouchableOpacity>
-            <TouchableOpacity 
-              style={[styles.moodOption, mood === 'neutral' && styles.selectedMood]} 
-              onPress={() => setMood('neutral')}
-            >
-              <Ionicons name="happy-outline" size={28} color={mood === 'neutral' ? Colors.primary : Colors.textSecondary} />
-            </TouchableOpacity>
-            <TouchableOpacity 
-              style={[styles.moodOption, mood === 'sad' && styles.selectedMood]} 
-              onPress={() => setMood('sad')}
-            >
-              <Ionicons name="sad-outline" size={28} color={mood === 'sad' ? Colors.primary : Colors.textSecondary} />
-            </TouchableOpacity>
-          </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.passageInput}
+            placeholder="Bible Passage (e.g., John 3:16)"
+            placeholderTextColor="#999"
+            value={passage}
+            onChangeText={setPassage}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Write your reflections..."
+            placeholderTextColor="#999"
+            multiline
+            value={newEntry}
+            onChangeText={setNewEntry}
+          />
+          <TouchableOpacity style={styles.addButton} onPress={addEntry}>
+            <Text style={styles.addButtonText}>Add Entry</Text>
+          </TouchableOpacity>
         </View>
 
-        <Button 
-          title="Add Journal Entry" 
-          onPress={addEntry}
-          style={styles.journalAddButton}
+        <FlatList
+          data={entries}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          style={styles.entriesList}
         />
-      </View>
-
-      <FlatList
-        data={entries}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-        style={styles.entriesList}
-      />
-
-      <View style={styles.bottomBar}>
-        <TouchableOpacity 
-          style={styles.navButton}
-          onPress={() => router.push('/dashboard')}
-        >
-          <Ionicons name="grid-outline" size={24} color={Colors.textSecondary} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton}
-          onPress={() => router.push('/journal')}
-        >
-          <Ionicons name="book-outline" size={24} color={Colors.primary} />
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={styles.addButton}
-          onPress={() => router.push('/add-habit')}
-        >
-          <Ionicons name="add" size={30} color="#fff" />
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={styles.navButton}
-          onPress={() => router.push('/routines')}
-        >
-          <Ionicons name="calendar-outline" size={24} color={Colors.textSecondary} />
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={styles.navButton}
-          onPress={() => router.push('/profile')}
-        >
-          <Ionicons name="person-outline" size={24} color={Colors.textSecondary} />
-        </TouchableOpacity>
-      </View>
+      </LinearGradient>
     </SafeAreaView>
   );
 }
@@ -159,92 +91,60 @@ export default function JournalScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'transparent',
+  },
+  gradient: {
+    flex: 1,
     padding: 20,
   },
-  header: {
-    paddingTop: 40,
-    paddingBottom: 20,
-    paddingHorizontal: 20,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-  },
   headerTitle: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
     color: '#fff',
     textAlign: 'center',
-    marginTop: 10,
+    marginTop: 20,
+    marginBottom: 20,
   },
   inputContainer: {
-    padding: 20,
-    backgroundColor: '#fff',
-    margin: 15,
+    backgroundColor: Colors.card,
     borderRadius: 15,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    padding: 15,
+    marginBottom: 20,
+  },
+  passageInput: {
+    backgroundColor: Colors.cardHighlight,
+    borderRadius: 10,
+    padding: 12,
+    marginBottom: 10,
+    color: '#fff',
   },
   input: {
-    height: 100,
-    borderWidth: 1,
-    borderColor: '#eee',
+    backgroundColor: Colors.cardHighlight,
     borderRadius: 10,
-    padding: 15,
-    fontSize: 16,
+    padding: 12,
+    height: 100,
     textAlignVertical: 'top',
-  },
-  moodSelector: {
-    marginTop: 15,
-  },
-  moodLabel: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: Colors.text,
-    marginBottom: 10,
-  },
-  moodOptions: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  moodOption: {
-    padding: 10,
-    borderRadius: 25,
-    borderWidth: 1,
-    borderColor: '#eee',
-    width: 50,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  selectedMood: {
-    borderColor: Colors.primary,
-    backgroundColor: 'rgba(0, 96, 214, 0.1)',
-  },
-  journalAddButton: {
-    marginTop: 15,
-    width: '100%',
-    borderRadius: 30,
+    color: '#fff',
   },
   addButton: {
-    marginTop: 15,
+    backgroundColor: Colors.primary,
+    borderRadius: 10,
+    padding: 15,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  addButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
   entriesList: {
     flex: 1,
-    paddingHorizontal: 15,
   },
   entryCard: {
-    backgroundColor: '#fff',
-    padding: 15,
+    backgroundColor: Colors.card,
     borderRadius: 15,
+    padding: 15,
     marginBottom: 15,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
   },
   entryHeader: {
     flexDirection: 'row',
@@ -254,43 +154,17 @@ const styles = StyleSheet.create({
   },
   entryDate: {
     fontSize: 14,
-    color: Colors.textSecondary,
+    color: '#fff',
+    opacity: 0.8,
   },
-  moodIcon: {
-    width: 30,
-    height: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
+  passageText: {
+    fontSize: 14,
+    color: Colors.secondary,
+    fontWeight: '600',
   },
   entryContent: {
     fontSize: 16,
-    color: Colors.text,
-    lineHeight: 22,
-  },
-  bottomBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    height: 70,
-    backgroundColor: '#fff',
-    borderTopWidth: 1,
-    borderTopColor: '#EEEEEE',
-  },
-  navButton: {
-    padding: 10,
-  },
-  addButton: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: Colors.primary,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 25,
-    shadowColor: Colors.primary,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 6,
-    elevation: 5,
+    color: '#fff',
+    lineHeight: 24,
   },
 });
