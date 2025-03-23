@@ -14,7 +14,7 @@ export default function WelcomeScreen() {
 
       <View style={styles.imageContainer}>
         <Image 
-          source={require('../assets/images/icon.png')}
+          source={require('../attached_assets/IMG_2356.jpeg')}
           style={styles.image}
           resizeMode="contain"
         />
