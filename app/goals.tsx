@@ -1,10 +1,11 @@
 
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
 import NeomorphBox from '../components/NeomorphBox';
+import AddGoalModal from '../components/AddGoalModal';
 
 interface Goal {
   id: string;
@@ -31,6 +32,18 @@ export default function GoalsScreen() {
       deadline: '2024-03-01'
     }
   ]);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleAddGoal = (newGoal: { title: string; target: number; deadline: string }) => {
+    setGoals(prevGoals => [
+      ...prevGoals,
+      {
+        id: (prevGoals.length + 1).toString(),
+        ...newGoal,
+        current: 0
+      }
+    ]);
+  };
 
   return (
     <View style={styles.container}>
@@ -42,7 +55,10 @@ export default function GoalsScreen() {
       </LinearGradient>
 
       <ScrollView style={styles.content}>
-        <TouchableOpacity style={styles.addGoalButton}>
+        <TouchableOpacity 
+          style={styles.addGoalButton}
+          onPress={() => setModalVisible(true)}
+        >
           <Ionicons name="add-circle-outline" size={24} color={Colors.primary} />
           <Text style={styles.addGoalText}>Add New Goal</Text>
         </TouchableOpacity>
@@ -72,6 +88,12 @@ export default function GoalsScreen() {
           </NeomorphBox>
         ))}
       </ScrollView>
+
+      <AddGoalModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        onAdd={handleAddGoal}
+      />
     </View>
   );
 }
