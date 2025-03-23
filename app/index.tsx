@@ -21,9 +21,9 @@ export default function WelcomeScreen() {
       </View>
 
       <View style={styles.textContainer}>
-        <Text style={styles.title}>Maintain Daily Habit</Text>
+        <Text style={styles.title}>Deepen Your Faith, One Chapter at a Time</Text>
         <Text style={styles.description}>
-          A habit tracker is a simple way to measure whether you did a habit. The most basic format is to get a calendar.
+          Track your Bible reading, reflect on Scripture, and stay consistent in your journey.
         </Text>
       </View>
 
