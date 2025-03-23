@@ -1,8 +1,8 @@
 
 export const Colors = {
-  primary: '#7C4DFF',
-  primaryGradientEnd: '#2196F3',
-  secondary: '#82B1FF',
+  primary: '#87CEEB', // Light sky blue
+  primaryGradientEnd: '#60A5FA',
+  secondary: '#FFD700', // Gold
   background: 'rgba(245, 245, 247, 0.9)',
   neomorphismShadowLight: 'rgba(255, 255, 255, 0.7)',
   neomorphismShadowDark: 'rgba(174, 174, 192, 0.2)',
@@ -11,12 +11,12 @@ export const Colors = {
   text: '#333333',
   textSecondary: '#666666',
   success: '#4CAF50',
-  pending: '#82B1FF',
+  pending: '#FFD700',
   error: '#FF5252',
-  icon: '#7C4DFF',
-  gradient: ['#7C4DFF', '#2196F3', '#82B1FF'],
-  progressGradient: ['#7C4DFF', '#2196F3', '#82B1FF'],
-  buttonGradient: ['#7C4DFF', '#2196F3']
+  icon: '#87CEEB',
+  gradient: ['#87CEEB', '#60A5FA', '#FFD700'],
+  progressGradient: ['#87CEEB', '#60A5FA', '#FFD700'],
+  buttonGradient: ['#87CEEB', '#FFD700']
 };
 
 export default Colors;
