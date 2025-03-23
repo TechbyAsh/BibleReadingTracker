@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import Colors from '../constants/Colors';
+import { ACHIEVEMENTS } from '../constants/Achievements';
 import ProgressCircle from '../components/ProgressCircle';
 import NeomorphBox from '../components/NeomorphBox';
 import NavigationBar from '../components/NavigationBar';
@@ -46,6 +47,36 @@ export default function DashboardScreen() {
             <ProgressCircle progress={progress} />
             <Text style={styles.progressLabel}>Bible Reading Progress</Text>
           </View>
+          <View style={styles.streakContainer}>
+            <NeomorphBox style={styles.streakBox}>
+              <Ionicons name="flame" size={24} color={Colors.secondary} />
+              <Text style={styles.streakCount}>7</Text>
+              <Text style={styles.streakLabel}>Day Streak</Text>
+            </NeomorphBox>
+          </View>
+        </View>
+
+        <View style={styles.achievementsContainer}>
+          <Text style={styles.sectionTitle}>Recent Achievements</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {ACHIEVEMENTS.map(achievement => (
+              <NeomorphBox key={achievement.id} style={styles.achievementCard}>
+                <View style={[styles.achievementIcon, !achievement.unlocked && styles.achievementLocked]}>
+                  <Ionicons 
+                    name={achievement.icon as any} 
+                    size={24} 
+                    color={achievement.unlocked ? Colors.secondary : Colors.textSecondary} 
+                  />
+                </View>
+                <Text style={[
+                  styles.achievementTitle,
+                  !achievement.unlocked && styles.achievementLockedText
+                ]}>
+                  {achievement.title}
+                </Text>
+              </NeomorphBox>
+            ))}
+          </ScrollView>
         </View>
 
         <View style={styles.glassCard}>
@@ -71,6 +102,55 @@ export default function DashboardScreen() {
 }
 
 const styles = StyleSheet.create({
+  streakContainer: {
+    marginTop: 20,
+  },
+  streakBox: {
+    padding: 15,
+    alignItems: 'center',
+    borderRadius: 15,
+  },
+  streakCount: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: Colors.secondary,
+    marginTop: 5,
+  },
+  streakLabel: {
+    fontSize: 14,
+    color: Colors.textSecondary,
+    marginTop: 5,
+  },
+  achievementsContainer: {
+    marginTop: 20,
+  },
+  achievementCard: {
+    padding: 15,
+    marginRight: 15,
+    borderRadius: 15,
+    alignItems: 'center',
+    width: 100,
+  },
+  achievementIcon: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: Colors.card,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  achievementTitle: {
+    fontSize: 12,
+    textAlign: 'center',
+    color: Colors.text,
+  },
+  achievementLocked: {
+    opacity: 0.5,
+  },
+  achievementLockedText: {
+    color: Colors.textSecondary,
+  },
   container: {
     flex: 1,
   },
