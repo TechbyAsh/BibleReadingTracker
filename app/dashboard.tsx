@@ -1,24 +1,36 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
+
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import Colors from '../constants/Colors';
-import { ACHIEVEMENTS } from '../constants/Achievements';
 import ProgressCircle from '../components/ProgressCircle';
 import NeomorphBox from '../components/NeomorphBox';
 import NavigationBar from '../components/NavigationBar';
 
+const DAILY_VERSE = {
+  text: "Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.",
+  reference: "Joshua 1:9"
+};
+
 export default function DashboardScreen() {
   const router = useRouter();
   const [progress, setProgress] = useState(35);
+  const [streakCount, setStreakCount] = useState(7);
+  const [chaptersRead, setChaptersRead] = useState(42);
+  const [currentDate, setCurrentDate] = useState('');
 
-  const readings = [
-    { id: '1', title: 'Genesis 1-3', completed: true, icon: 'book-outline' },
-    { id: '2', title: 'Psalms 1-5', completed: false, pending: true, icon: 'book-outline' },
-    { id: '3', title: 'Matthew 1-2', completed: false, icon: 'book-outline' },
-  ];
+  useEffect(() => {
+    const date = new Date();
+    setCurrentDate(date.toLocaleDateString('en-US', { 
+      weekday: 'long', 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    }));
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -28,72 +40,70 @@ export default function DashboardScreen() {
         style={styles.gradient}
       >
         <NeomorphBox style={styles.headerContainer}>
-          <View style={styles.header}>
+          <View style={styles.headerContent}>
             <View>
-              <Text style={styles.greeting}>Welcome Back 🙏</Text>
-              <Text style={styles.username}>Daily Bible Reading</Text>
+              <Text style={styles.date}>{currentDate}</Text>
+              <Text style={styles.greeting}>Welcome, John</Text>
             </View>
-            <TouchableOpacity 
-              style={styles.profileButton}
-              onPress={() => router.push('/profile')}
-            >
-              <Ionicons name="person-circle-outline" size={40} color={Colors.primary} />
-            </TouchableOpacity>
+          </View>
+          <View style={styles.verseContainer}>
+            <Text style={styles.verseText}>"{DAILY_VERSE.text}"</Text>
+            <Text style={styles.verseReference}>- {DAILY_VERSE.reference}</Text>
           </View>
         </NeomorphBox>
 
+        <View style={styles.progressSection}>
+          <ProgressCircle progress={progress} />
+          <Text style={styles.progressLabel}>Bible Reading Progress</Text>
+        </View>
+
+        <View style={styles.quickActions}>
+          <TouchableOpacity 
+            style={styles.actionButton}
+            onPress={() => router.push('/books-and-chapters')}
+          >
+            <Ionicons name="book-outline" size={24} color={Colors.primary} />
+            <Text style={styles.actionText}>Continue Reading</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity 
+            style={styles.actionButton}
+            onPress={() => router.push('/book-chapters')}
+          >
+            <Ionicons name="checkbox-outline" size={24} color={Colors.primary} />
+            <Text style={styles.actionText}>Log Chapter</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity 
+            style={styles.actionButton}
+            onPress={() => router.push('/journal')}
+          >
+            <Ionicons name="create-outline" size={24} color={Colors.primary} />
+            <Text style={styles.actionText}>Write Reflection</Text>
+          </TouchableOpacity>
+        </View>
+
         <View style={styles.statsContainer}>
-          <View style={styles.progressContainer}>
-            <ProgressCircle progress={progress} />
-            <Text style={styles.progressLabel}>Bible Reading Progress</Text>
-          </View>
-          <View style={styles.streakContainer}>
-            <NeomorphBox style={styles.streakBox}>
-              <Ionicons name="flame" size={24} color={Colors.secondary} />
-              <Text style={styles.streakCount}>7</Text>
-              <Text style={styles.streakLabel}>Day Streak</Text>
-            </NeomorphBox>
-          </View>
+          <NeomorphBox style={styles.statBox}>
+            <Ionicons name="flame" size={24} color={Colors.secondary} />
+            <Text style={styles.statCount}>{streakCount}</Text>
+            <Text style={styles.statLabel}>Day Streak</Text>
+          </NeomorphBox>
+
+          <NeomorphBox style={styles.statBox}>
+            <Ionicons name="library" size={24} color={Colors.secondary} />
+            <Text style={styles.statCount}>{chaptersRead}</Text>
+            <Text style={styles.statLabel}>Chapters Read</Text>
+          </NeomorphBox>
         </View>
 
-        <View style={styles.achievementsContainer}>
-          <Text style={styles.sectionTitle}>Recent Achievements</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {ACHIEVEMENTS.map(achievement => (
-              <NeomorphBox key={achievement.id} style={styles.achievementCard}>
-                <View style={[styles.achievementIcon, !achievement.unlocked && styles.achievementLocked]}>
-                  <Ionicons 
-                    name={achievement.icon as any} 
-                    size={24} 
-                    color={achievement.unlocked ? Colors.secondary : Colors.textSecondary} 
-                  />
-                </View>
-                <Text style={[
-                  styles.achievementTitle,
-                  !achievement.unlocked && styles.achievementLockedText
-                ]}>
-                  {achievement.title}
-                </Text>
-              </NeomorphBox>
-            ))}
-          </ScrollView>
-        </View>
-
-        <View style={styles.glassCard}>
-          <Text style={styles.sectionTitle}>Today's Reading Plan</Text>
-          <ScrollView style={styles.readingList}>
-            {readings.map(reading => (
-              <TouchableOpacity key={reading.id} style={styles.readingItem}>
-                <Ionicons 
-                  name={reading.completed ? "checkmark-circle" : "book-outline"} 
-                  size={24} 
-                  color={reading.completed ? Colors.success : Colors.primary} 
-                />
-                <Text style={styles.readingText}>{reading.title}</Text>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
-        </View>
+        <NeomorphBox style={styles.remindersContainer}>
+          <Text style={styles.reminderTitle}>Today's Reading Reminder</Text>
+          <View style={styles.reminderItem}>
+            <Ionicons name="time-outline" size={20} color={Colors.secondary} />
+            <Text style={styles.reminderText}>8:00 PM - Daily Bible Reading</Text>
+          </View>
+        </NeomorphBox>
       </LinearGradient>
 
       <NavigationBar />
@@ -102,55 +112,6 @@ export default function DashboardScreen() {
 }
 
 const styles = StyleSheet.create({
-  streakContainer: {
-    marginTop: 20,
-  },
-  streakBox: {
-    padding: 15,
-    alignItems: 'center',
-    borderRadius: 15,
-  },
-  streakCount: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: Colors.secondary,
-    marginTop: 5,
-  },
-  streakLabel: {
-    fontSize: 14,
-    color: Colors.textSecondary,
-    marginTop: 5,
-  },
-  achievementsContainer: {
-    marginTop: 20,
-  },
-  achievementCard: {
-    padding: 15,
-    marginRight: 15,
-    borderRadius: 15,
-    alignItems: 'center',
-    width: 100,
-  },
-  achievementIcon: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: Colors.card,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  achievementTitle: {
-    fontSize: 12,
-    textAlign: 'center',
-    color: Colors.text,
-  },
-  achievementLocked: {
-    opacity: 0.5,
-  },
-  achievementLockedText: {
-    color: Colors.textSecondary,
-  },
   container: {
     flex: 1,
   },
@@ -160,99 +121,112 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     marginTop: 20,
-    marginBottom: 20,
     padding: 15,
     borderRadius: 15,
-    backgroundColor: Colors.card,
   },
-  header: {
+  headerContent: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    marginBottom: 10,
+  },
+  date: {
+    fontSize: 14,
+    color: Colors.textSecondary,
   },
   greeting: {
-    fontSize: 16,
-    color: '#fff',
-  },
-  username: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#fff',
+    color: Colors.text,
+    marginTop: 5,
   },
-  profileButton: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: Colors.card,
-    justifyContent: 'center',
-    alignItems: 'center',
+  verseContainer: {
+    marginTop: 10,
+    padding: 10,
+    backgroundColor: Colors.cardHighlight,
+    borderRadius: 10,
   },
-  statsContainer: {
+  verseText: {
+    fontSize: 14,
+    color: Colors.text,
+    fontStyle: 'italic',
+  },
+  verseReference: {
+    fontSize: 12,
+    color: Colors.textSecondary,
+    marginTop: 5,
+    textAlign: 'right',
+  },
+  progressSection: {
     alignItems: 'center',
     marginVertical: 20,
-  },
-  progressContainer: {
-    alignItems: 'center',
   },
   progressLabel: {
     marginTop: 10,
     fontSize: 16,
-    color: '#fff',
+    color: Colors.text,
     fontWeight: '600',
   },
-  glassCard: {
+  quickActions: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+  },
+  actionButton: {
     backgroundColor: Colors.card,
-    borderRadius: 20,
-    padding: 20,
-    marginTop: 20,
-    backdropFilter: 'blur(10px)',
+    padding: 15,
+    borderRadius: 12,
+    alignItems: 'center',
+    flex: 1,
+    marginHorizontal: 5,
   },
-  sectionTitle: {
-    fontSize: 18,
+  actionText: {
+    color: Colors.text,
+    fontSize: 12,
+    marginTop: 5,
+    textAlign: 'center',
+  },
+  statsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+  },
+  statBox: {
+    flex: 1,
+    marginHorizontal: 5,
+    padding: 15,
+    alignItems: 'center',
+  },
+  statCount: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: Colors.text,
+    marginTop: 5,
+  },
+  statLabel: {
+    fontSize: 12,
+    color: Colors.textSecondary,
+    marginTop: 5,
+  },
+  remindersContainer: {
+    padding: 15,
+    borderRadius: 15,
+  },
+  reminderTitle: {
+    fontSize: 16,
     fontWeight: '600',
-    color: '#fff',
-    marginBottom: 15,
+    color: Colors.text,
+    marginBottom: 10,
   },
-  readingList: {
-    maxHeight: 200,
-  },
-  readingItem: {
+  reminderItem: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: Colors.cardHighlight,
-    padding: 15,
-    borderRadius: 10,
-    marginBottom: 10,
-  },
-  readingText: {
-    marginLeft: 10,
-    fontSize: 16,
-    color: '#fff',
-  },
-  bottomBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    height: 70,
-    backgroundColor: '#fff',
-    borderTopWidth: 1,
-    borderTopColor: '#EEEEEE',
-  },
-  navButton: {
     padding: 10,
+    borderRadius: 10,
   },
-  addButton: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: Colors.primary,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 25,
-    shadowColor: Colors.primary,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 6,
-    elevation: 5,
+  reminderText: {
+    marginLeft: 10,
+    color: Colors.text,
+    fontSize: 14,
   },
 });
