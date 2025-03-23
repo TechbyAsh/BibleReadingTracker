@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -29,6 +28,16 @@ export default function NavigationBar() {
           name="journal-outline" 
           size={24} 
           color={pathname === '/journal' ? Colors.primary : Colors.textSecondary} 
+        />
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.navButton}
+        onPress={() => router.push('/goals')}
+      >
+        <Ionicons
+          name={pathname === '/goals' ? 'trophy' : 'trophy-outline'}
+          size={24}
+          color={pathname === '/goals' ? Colors.primary : Colors.textSecondary}
         />
       </TouchableOpacity>
       <TouchableOpacity 

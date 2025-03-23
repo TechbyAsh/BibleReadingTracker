@@ -36,6 +36,7 @@ export default function RootLayout() {
             <Stack.Screen name="add-habit" options={{ title: 'Add Habit' }} />
             <Stack.Screen name="journal" options={{ title: 'Bible Journal' }} />
             <Stack.Screen name="books-and-chapters" options={{ title: 'Bible Reading' }} />
+            <Stack.Screen name="goals" options={{ title: 'Reading Goals' }} />
             <Stack.Screen name="profile" options={{ title: 'Profile' }} />
           </Stack>
         </LinearGradient>
