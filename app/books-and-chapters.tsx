@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
   bookInfo: {
-    flex: 1,
+    marginBottom: 8,
   },
   container: {
     flex: 1,
@@ -108,9 +108,6 @@ const styles = StyleSheet.create({
   },
   bookContent: {
     padding: 16,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
   },
   bookTitle: {
     fontSize: 18,
