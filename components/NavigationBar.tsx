@@ -39,12 +39,12 @@ export default function NavigationBar() {
       </TouchableOpacity>
       <TouchableOpacity 
         style={styles.navButton}
-        onPress={() => router.push('/routines')}
+        onPress={() => router.push('/books-and-chapters')}
       >
         <Ionicons 
-          name="list-outline" 
+          name="book-outline" 
           size={24} 
-          color={pathname === '/routines' ? Colors.primary : Colors.textSecondary} 
+          color={pathname === '/books-and-chapters' ? Colors.primary : Colors.textSecondary} 
         />
       </TouchableOpacity>
       <TouchableOpacity 
