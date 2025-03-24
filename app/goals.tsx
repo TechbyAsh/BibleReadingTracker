@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
 import NeomorphBox from '../components/NeomorphBox';
 import AddGoalModal from '../components/AddGoalModal';
+import ProgressCircle from '../components/ProgressCircle';
 
 interface Goal {
   id: string;
