@@ -15,6 +15,16 @@ interface Goal {
   deadline: string;
 }
 
+const CURRENT_PLAN = {
+  title: 'Bible in a Year',
+  startDate: '2024-01-01',
+  totalDays: 365,
+  completedDays: 15,
+  frequency: 'Daily',
+  nextReading: 'Genesis 16-18',
+  streak: 15,
+};
+
 export default function GoalsScreen() {
   const [goals, setGoals] = useState<Goal[]>([
     {
@@ -33,6 +43,7 @@ export default function GoalsScreen() {
     }
   ]);
   const [modalVisible, setModalVisible] = useState(false);
+  const progress = (CURRENT_PLAN.completedDays / CURRENT_PLAN.totalDays) * 100;
 
   const handleAddGoal = (newGoal: { title: string; target: number; deadline: string }) => {
     setGoals(prevGoals => [
@@ -55,6 +66,37 @@ export default function GoalsScreen() {
       </LinearGradient>
 
       <ScrollView style={styles.content}>
+        <NeomorphBox style={styles.planCard}>
+          <Text style={styles.planTitle}>{CURRENT_PLAN.title}</Text>
+          <View style={styles.progressSection}>
+            <ProgressCircle progress={progress} />
+            <View style={styles.progressDetails}>
+              <Text style={styles.progressText}>
+                {CURRENT_PLAN.completedDays} of {CURRENT_PLAN.totalDays} days
+              </Text>
+              <Text style={styles.frequencyText}>
+                {CURRENT_PLAN.frequency} Reading
+              </Text>
+            </View>
+          </View>
+        </NeomorphBox>
+
+        <NeomorphBox style={styles.statsCard}>
+          <View style={styles.statItem}>
+            <Ionicons name="flame" size={24} color={Colors.secondary} />
+            <Text style={styles.statValue}>{CURRENT_PLAN.streak}</Text>
+            <Text style={styles.statLabel}>Day Streak</Text>
+          </View>
+          <View style={styles.divider} />
+          <View style={styles.statItem}>
+            <Ionicons name="calendar" size={24} color={Colors.secondary} />
+            <Text style={styles.statValue}>
+              {CURRENT_PLAN.totalDays - CURRENT_PLAN.completedDays}
+            </Text>
+            <Text style={styles.statLabel}>Days Left</Text>
+          </View>
+        </NeomorphBox>
+
         <TouchableOpacity 
           style={styles.addGoalButton}
           onPress={() => setModalVisible(true)}
@@ -99,6 +141,57 @@ export default function GoalsScreen() {
 }
 
 const styles = StyleSheet.create({
+  planCard: {
+    padding: 20,
+    marginBottom: 15,
+  },
+  planTitle: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: Colors.text,
+    marginBottom: 15,
+  },
+  progressSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  progressDetails: {
+    alignItems: 'center',
+  },
+  progressText: {
+    fontSize: 16,
+    color: Colors.text,
+    marginBottom: 5,
+  },
+  frequencyText: {
+    fontSize: 14,
+    color: Colors.textSecondary,
+  },
+  statsCard: {
+    flexDirection: 'row',
+    padding: 20,
+    marginBottom: 15,
+    justifyContent: 'space-around',
+  },
+  statItem: {
+    alignItems: 'center',
+  },
+  divider: {
+    width: 1,
+    backgroundColor: Colors.textSecondary,
+    opacity: 0.2,
+  },
+  statValue: {
+    fontSize: 24,
+    fontWeight: '600',
+    color: Colors.text,
+    marginVertical: 5,
+  },
+  statLabel: {
+    fontSize: 14,
+    color: Colors.textSecondary,
+  },
   container: {
     flex: 1,
     backgroundColor: Colors.background,
