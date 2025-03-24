@@ -98,6 +98,45 @@ export default function GoalsScreen() {
           </View>
         </NeomorphBox>
 
+        <NeomorphBox style={styles.readingSection}>
+          <Text style={styles.sectionTitle}>Daily Readings</Text>
+          
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.calendarView}>
+            {[...Array(7)].map((_, index) => {
+              const date = new Date();
+              date.setDate(date.getDate() + index);
+              return (
+                <View key={index} style={styles.dateCard}>
+                  <Text style={styles.dayText}>{date.toLocaleDateString('en-US', { weekday: 'short' })}</Text>
+                  <Text style={styles.dateText}>{date.getDate()}</Text>
+                  <Text style={styles.readingText}>
+                    {index === 0 ? 'Genesis 16-18' : 
+                     index === 1 ? 'Genesis 19-20' :
+                     index === 2 ? 'Genesis 21-23' :
+                     index === 3 ? 'Genesis 24-25' :
+                     'Genesis 26-27'}
+                  </Text>
+                </View>
+              );
+            })}
+          </ScrollView>
+
+          <View style={styles.listView}>
+            <Text style={styles.listTitle}>Upcoming Readings</Text>
+            {[...Array(5)].map((_, index) => (
+              <View key={index} style={styles.readingItem}>
+                <TouchableOpacity style={styles.checkbox}>
+                  <Ionicons name="square-outline" size={24} color={Colors.textSecondary} />
+                </TouchableOpacity>
+                <View style={styles.readingDetails}>
+                  <Text style={styles.readingDay}>Day {CURRENT_PLAN.completedDays + index + 1}</Text>
+                  <Text style={styles.readingText}>Genesis {16 + (index * 2)}-{17 + (index * 2)}</Text>
+                </View>
+              </View>
+            ))}
+          </View>
+        </NeomorphBox>
+
         <TouchableOpacity 
           style={styles.addGoalButton}
           onPress={() => setModalVisible(true)}
@@ -192,6 +231,73 @@ const styles = StyleSheet.create({
   statLabel: {
     fontSize: 14,
     color: Colors.textSecondary,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: Colors.background,
+  },
+  readingSection: {
+    marginVertical: 15,
+    padding: 15,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: Colors.text,
+    marginBottom: 15,
+  },
+  calendarView: {
+    flexDirection: 'row',
+    marginBottom: 20,
+  },
+  dateCard: {
+    width: 100,
+    padding: 10,
+    marginRight: 10,
+    backgroundColor: Colors.card,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  dayText: {
+    fontSize: 14,
+    color: Colors.textSecondary,
+  },
+  dateText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: Colors.text,
+    marginVertical: 5,
+  },
+  listView: {
+    marginTop: 10,
+  },
+  listTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: Colors.text,
+    marginBottom: 10,
+  },
+  readingItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.border,
+  },
+  checkbox: {
+    marginRight: 10,
+  },
+  readingDetails: {
+    flex: 1,
+  },
+  readingDay: {
+    fontSize: 14,
+    color: Colors.textSecondary,
+  },
+  readingText: {
+    fontSize: 14,
+    color: Colors.text,
+    marginTop: 2,
   },
   container: {
     flex: 1,
