@@ -41,6 +41,16 @@ export default function NavigationBar() {
         />
       </TouchableOpacity>
       <TouchableOpacity 
+        style={styles.navButton}
+        onPress={() => router.push('/planner')} // Added planner navigation
+      >
+        <Ionicons 
+          name="calendar-outline" 
+          size={24} 
+          color={pathname === '/planner' ? Colors.primary : Colors.textSecondary} 
+        />
+      </TouchableOpacity>
+      <TouchableOpacity 
         style={styles.addButton}
         onPress={() => router.push('/add-habit')}
       >
