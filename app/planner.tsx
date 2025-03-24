@@ -84,7 +84,8 @@ export default function PlannerScreen() {
         <TouchableOpacity 
           style={styles.startButton}
           onPress={() => {
-            router.push('/plan-progress');
+            const router = useRouter();
+            router.push('/(tabs)/plan-progress');
           }}
         >
           <Text style={styles.startButtonText}>Start Plan</Text>
